@@ -1,0 +1,13 @@
+{
+  "name": "mail-digest",
+  "version": "1.0.0",
+  "description": "Daily email digest automation for macOS Mail.app with priority-based categorization",
+  "author": "lyra-the-assistant",
+  "license": "MIT",
+  "keywords": ["email", "mail", "digest", "macos", "automation"],
+  "requirements": {
+    "platform": "macOS",
+    "apps": ["Mail.app"],
+    "permissions": ["Automation access to Mail.app"]
+  }
+}
