@@ -11,7 +11,7 @@ Daily email digest automation for macOS Mail.app. Generates **two separate diges
 - **LLM-based priority classification:** Uses AI to understand context and intent
 - **Scam detection:** LLM flags suspicious patterns
 - **Discord Component v2 output:** Clean hierarchical formatting
-- **Auto mark-as-read:** Unread emails marked as read after digest (yesterday's emails left as-is)
+- **Auto mark-as-read:** Disabled — emails left as-is for manual review in Mail.app
 
 ## Classification Rules
 
@@ -49,8 +49,10 @@ account|||subject|||sender|||date|||id
 ## Daily Workflow
 
 1. **8:00 AM**: Cron triggers isolated agent session
-2. **Fetch unread**: Get new unread emails, classify with LLM, send digest, mark as read
-3. **Fetch yesterday**: Get all emails from previous day, classify with LLM, send digest, leave as-is
+2. **Fetch unread**: Get new unread emails, classify with LLM, send digest (emails left as-is)
+3. **Fetch yesterday**: Get all emails from previous day, classify with LLM, send digest (emails left as-is)
+
+**Note:** Emails are NOT marked as read automatically. Use Mail.app to manage read status manually.
 
 ## License
 
