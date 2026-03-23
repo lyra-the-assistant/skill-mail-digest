@@ -13,6 +13,26 @@ Daily email digest automation for macOS Mail.app. Generates **two separate diges
 - **Discord Component v2 output:** Clean hierarchical formatting
 - **Auto mark-as-read:** Unread emails marked as read after digest (yesterday's emails left as-is)
 
+## Classification Rules
+
+**🔴 Critical — Immediate attention needed:**
+- Job applications, internships, recruitment from 实习僧网 / LinkedIn / Boss直聘
+- Interviews scheduled for today or tomorrow
+- Urgent deadlines (< 24 hours)
+- Security breaches, account compromises
+
+**🟠 Important — Action needed soon:**
+- Conference CFPs, workshop invites (CVPR, ICCV, NeurIPS, ICML, ICRA, IROS, RSS)
+- Collaboration requests from known contacts
+- GitHub issues/PRs requiring review
+- Billing/financial alerts
+
+**⚪ Normal — Can wait or FYI:**
+- Google Scholar alerts
+- "You appeared in X searches" notifications
+- Social media updates
+- Newsletters, digests, promotional emails
+
 ## Files
 
 - `scripts/fetch-unread.scpt` — Fetch new unread emails
