@@ -1,55 +1,36 @@
 # mail-digest
 
-Daily email digest automation for macOS Mail.app. Fetches unread emails, uses LLM for intelligent priority classification, generates formatted Discord reports, and marks emails as read.
+Daily email digest automation for macOS Mail.app. Generates **two separate digests** — one for unread emails and one for all emails from the previous day. Each digest uses LLM-based classification with Critical/Important/Normal tiers.
 
 ## Features
 
+- **Dual digest system:**
+  - **Unread digest:** New unread emails (marked as read after processing)
+  - **Yesterday's digest:** All emails from previous day (regardless of read status)
+- **Independent tier classification:** Each digest has its own 🔴 Critical / 🟠 Important / ⚪ Normal structure
 - **LLM-based priority classification:** Uses AI to understand context and intent
-  - 🔴 Critical: Job applications, urgent deadlines, interviews scheduled today, security issues
-  - 🟠 Important: Work events, conferences, relevant opportunities, action items
-  - ⚪ Normal: Newsletters, social notifications, routine updates, Google Scholar
-- **Scam detection:** LLM flags suspicious patterns (ETH refunds, phishing, etc.)
+- **Scam detection:** LLM flags suspicious patterns
 - **Discord Component v2 output:** Clean hierarchical formatting
-- **Auto mark-as-read:** Processes emails after digest generation
-
-## Requirements
-
-- macOS with Mail.app configured
-- AppleScript Automation permission for Mail.app
-- OpenClaw with LLM capabilities
-
-## Usage
-
-### Manual Run
-
-```bash
-# Fetch raw unread emails (no classification)
-osascript scripts/fetch-unread.scpt
-
-# Mark all unread as read
-osascript scripts/mark-read.scpt
-```
-
-### LLM Classification Prompt
-
-The agent uses this logic to classify:
-
-```
-CRITICAL: Job applications/internships, urgent deadlines, interviews today, security alerts, 
-          recruitment from 实习僧网/LinkedIn/Boss直聘, candidate submissions
-
-IMPORTANT: Conference CFPs (CVPR, ICCV, NeurIPS, etc.), workshop invites, collaboration requests,
-           GitHub notifications requiring action, billing alerts
-
-NORMAL: Google Scholar alerts, social notifications, newsletters, automated digests,
-        promotional emails, "you appeared in searches"
-```
+- **Auto mark-as-read:** Unread emails marked as read after digest (yesterday's emails left as-is)
 
 ## Files
 
-- `scripts/fetch-unread.scpt` — Fetch raw unread emails
-- `scripts/mark-read.scpt` — Mark all unread as read
+- `scripts/fetch-unread.scpt` — Fetch new unread emails
+- `scripts/fetch-yesterday.scpt` — Fetch all emails from previous day
+- `scripts/mark-read.scpt` — Mark unread emails as read
 - `SKILL.md` — This documentation
+
+## Output Format
+
+```
+account|||subject|||sender|||date|||id
+```
+
+## Daily Workflow
+
+1. **8:00 AM**: Cron triggers isolated agent session
+2. **Fetch unread**: Get new unread emails, classify with LLM, send digest, mark as read
+3. **Fetch yesterday**: Get all emails from previous day, classify with LLM, send digest, leave as-is
 
 ## License
 

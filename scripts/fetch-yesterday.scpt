@@ -1,18 +1,22 @@
 #!/usr/bin/env osascript
--- Fetch unread emails only
+-- Fetch all emails from previous day (read or unread)
 -- Output: account|||subject|||sender|||date|||id
 
 on run
     tell application "Mail"
         set output to ""
+        set currentDate to current date
+        set yesterdayStart to currentDate - (1 * days)
+        set yesterdayStart to yesterdayStart - (time of yesterdayStart)
+        set yesterdayEnd to yesterdayStart + (1 * days) - 1
         
         repeat with acct in accounts
             set acctName to name of acct
             try
                 set inboxFolder to mailbox "INBOX" of acct
-                set unreadMsgs to (every message of inboxFolder whose read status is false)
+                set yesterdayMsgs to (every message of inboxFolder whose date received ≥ yesterdayStart and date received ≤ yesterdayEnd)
                 
-                repeat with msg in unreadMsgs
+                repeat with msg in yesterdayMsgs
                     set msgSubject to subject of msg
                     set msgSender to sender of msg
                     set msgDate to date received of msg
